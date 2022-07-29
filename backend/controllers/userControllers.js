@@ -67,7 +67,19 @@ const loginUser = asyncHandler(async (request, response) => {
         response.status(401)
         throw new Error('Invalid credentials')
     }
-}) 
+})
+
+// @desc   Get current Users
+// @route  /api/users/me
+// @access Private
+const getMe = asyncHandler(async (request, response) => {
+    const user = {
+        id: request.user._id,
+        email: request.user.email,
+        name: request.user.name
+    }
+    response.status(200).json(user)
+})
 
 // Generate Token
 
@@ -80,4 +92,5 @@ const generateToken = (id) => {
 module.exports = {
     registerUser,
     loginUser,
+    getMe
 }
